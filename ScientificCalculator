@@ -1,0 +1,52 @@
+import math
+class ScientificCalculator:
+  """A scientific calculator class."""
+  def __init__(self):
+    self.current_number = 0
+    self.operator = None
+  def enter_number(self, number):
+    """Enters a number into the calculator."""
+    self.current_number = self.current_number * 10 + number
+  def enter_operator(self, operator):
+    """Enters an operator into the calculator."""
+    self.operator = operator
+  def perform_operation(self):
+    """Performs the operation on the current number and the previous number."""
+    if self.operator == "+":
+      result = self.current_number + self.previous_number
+    elif self.operator == "-":
+      result = self.current_number - self.previous_number
+    elif self.operator == "*":
+      result = self.current_number * self.previous_number
+    elif self.operator == "/":
+      result = self.current_number / self.previous_number
+    elif self.operator == "**":
+      result = math.pow(self.current_number, self.previous_number)
+    else:
+      raise ValueError("Invalid operator")
+    self.previous_number = self.current_number
+    self.current_number = result
+  def clear(self):
+    """Clears the calculator."""
+    self.current_number = 0
+    self.operator = None
+  def display(self):
+    """Displays the current number."""
+    print(self.current_number)
+def main():
+  """The main function."""
+  calculator = ScientificCalculator()
+  while True:
+    number = input("Enter a number: ")
+    calculator.enter_number(int(number))
+    operator = input("Enter an operator (+, -, *, /, **): ")
+    calculator.enter_operator(operator)
+    if operator == "=":
+      calculator.perform_operation()
+      calculator.display()
+    else:
+      calculator.display()
+    if input("Continue? (y/n): ") == "n":
+      break
+if __name__ == "__main__":
+  main()
